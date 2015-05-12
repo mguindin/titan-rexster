@@ -1,6 +1,7 @@
-FROM dockerfile/java:latest
+FROM java:7
 
 MAINTAINER Abhinav Pobbati <apobbati@codeblock.io>
+MAINTAINER Matt Guindin <matt@guindin.com>
 
 WORKDIR /opt/titan-0.5.0-hadoop2
 
