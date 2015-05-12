@@ -7,7 +7,7 @@ extremely large graphs and it supports a variety of indexing and storage backend
 which makes it easier to extend than some popular NoSQL Graph databases.
 
 This docker image instantiates a Titan graph database that is capable of
-integrating with an ElasticSearch container (Indexing) and a Cassandra container (Storage).
+integrating with an ElasticSearch container (Indexing) and a HBase container (Storage).
 
 The default distribution of Titan runs on a single node, so I thought it would be helpful
 if there was a modular way at runtime to hook up Titan to its dependencies.
