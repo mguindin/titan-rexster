@@ -1,10 +1,12 @@
 # Docker Image for Titan Graph Database
 
+Originally from [apobbati](https://github.com/apobbati/titan-rexster)
+
 Titan is a free, open source database that is capable of processing
 extremely large graphs and it supports a variety of indexing and storage backends,
 which makes it easier to extend than some popular NoSQL Graph databases.
 
-This docker image instantiaties a Titan graph database that is capable of
+This docker image instantiates a Titan graph database that is capable of
 integrating with an ElasticSearch container (Indexing) and a Cassandra container (Storage).
 
 The default distribution of Titan runs on a single node, so I thought it would be helpful
@@ -25,7 +27,7 @@ manipulating and access Graph databases.
 [Rexster](https://github.com/tinkerpop/rexster/wiki) is a service that provides protocols
 for accessing a graph database. Currently it supports two protocols:
 	- REST over HTTP: Human-readable and good for testing
-	- RexPro: Binary Protocol for performence
+	- RexPro: Binary Protocol for performance
 
 If you'd like to avoid vendor lock-in, then I'd recommend using Rexster as the API
 for accessing your Graph database. It has support for popular graph databases,
@@ -38,9 +40,9 @@ elegance to query graphs.
 The minimum system requirements for this stack is 1 GB with 2 cores.
 
 ```
-docker run -d --name es1 dockerfile/elasticsearch
-docker run -d --name cs1 poklet/cassandra
-docker run -d -P --name mytitan --link es1:elasticsearch --link cs1:cassandra apobbati/titan-rexster
+docker run -d --name es1 elasticsearch
+docker run -d --name hb1 nerdammer/hbase
+docker run -d -P --name mytitan --link es1:elasticsearch --link hb1:hbase mguindin/titan-rexster
 ```
 
 ### Ports
@@ -63,16 +65,6 @@ curl http://localhost:<port-mapped-to-8182>/graphs/graph/vertices
 
 I've tested this container with the following containers:
 
-	- poklet/cassandra: This is the Cassandra Storage backend for Titan. It scales well for large datasets.
+	- nerdammer/hbase: HBase db that works for Titan persistance
 	- dockerfile/elasticsearch: This is the ElasticSearch Indexing backend for Titan. It provides search
 		capabilities for Titan graph datasets.
-
-## Roadmap
-
-In the near future, I'd like to add support for:
-
-	- Scaling/Clustering Cassandra and ElasticSearch backends.
-	- External volumes for persistent data.
-	- Security between Titan and its backends.
-	- Example application stack integrating with Titan.
-
